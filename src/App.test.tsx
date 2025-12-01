@@ -11,6 +11,11 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 describe('App', () => {
     beforeEach(() => {
         vi.clearAllMocks();
+        vi.spyOn(console, 'error').mockImplementation(() => { });
+    });
+
+    afterEach(() => {
+        vi.restoreAllMocks();
     });
 
     it('renders the header', () => {
@@ -37,7 +42,13 @@ describe('App', () => {
 
         expect(screen.getByText(/Generating.../i)).toBeInTheDocument();
         expect(button).toBeDisabled();
+
+        // Wait for loading to finish to avoid act() warnings
+        await waitFor(() => {
+            expect(screen.queryByText(/Generating.../i)).not.toBeInTheDocument();
+        });
     });
+
     it('shows error toast on API failure', async () => {
         mockedAxios.post.mockRejectedValueOnce(new Error('API Error'));
         render(<App />);
