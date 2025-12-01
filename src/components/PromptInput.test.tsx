@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { PromptInput } from './PromptInput';
 import { describe, it, expect, vi } from 'vitest';

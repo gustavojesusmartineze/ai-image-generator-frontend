@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { StyleSelector } from './components/StyleSelector';
 import { PromptInput } from './components/PromptInput';
 import { IconGrid } from './components/IconGrid';
